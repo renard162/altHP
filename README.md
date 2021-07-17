@@ -13,5 +13,13 @@ Lista de funções:
 c_(re, im) : Gera um número complexo ou um array de complexos na forma retangular, onde "re" e "im" assumem valores float ou array/list de floats.
 
 cp_(r, theta) : Análogo à função c_() mas gera os valores complexos na forma polar com raio "r" e ângulo "theta". De forma análoga tamb´m é possível passar floats, arrays/listas de floats nos parâmetros.
+
+ret(z) : Retorna um tuple com os valores de "re" e "im" do/s valor/es complexo/s fornecido/s.
+
+pol(z) : Retorna um tuple com os valores de "r" e "theta" do/s valor/es complexo/s fornecido/s.
+    
+abs(z) : Retorna apenas o módulo do/s valor/es complexo/s.
+    
+phase(z) : Retorna apenas o ângulo do/s valor/es complexo/s.
 ```
 
