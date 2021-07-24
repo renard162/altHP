@@ -14,7 +14,8 @@ from numpy import (
                    log10,
                    average,
                    mean,
-                   std
+                   std,
+                   roots
                   )
 
 #Config
