@@ -15,8 +15,13 @@ from numpy import (
                    average,
                    mean,
                    std,
-                   roots
+                   roots,
+                   sum
                   )
+
+from numpy.linalg import (
+                          inv
+                         )
 
 #Config
 pd.set_option('display.max_rows', 999,
@@ -33,17 +38,20 @@ _ND_ = (
         )
 
 #Conversão de ângulos (capaz de converter ângulos complexos)
-rad2deg = lambda theta: (theta * 180) / np.pi
-deg2rad = lambda theta: (theta * np.pi) / 180
+def rad2deg (theta): return (theta * 180) / np.pi
+def deg2rad (theta): return (theta * np.pi) / 180
 
 
 #Funções Complexas
-_vect_c_ = lambda func, z: np.vectorize(func)(z) if isinstance(z, _ND_) \
-                                                 else func(z)
-_pol_ = lambda z: (abs(z), rad2deg(ct.phase(z)))
-_ret_ = lambda z: (z.real, z.imag)
-_phase_ = lambda z: rad2deg(ct.phase(z))
-_c_ = lambda re, im: complex(re, im)
+def _vect_c_(func, z):
+    if isinstance(z, _ND_):
+        return np.vectorize(func)(z)
+    return func(z)
+
+def _pol_(z): return (abs(z), rad2deg(ct.phase(z)))
+def _ret_(z): return (z.real, z.imag)
+def _phase_(z): return rad2deg(ct.phase(z))
+def _c_(re, im): return complex(re, im)
 
 def c_(re, im):
     '''Complexo no formato z = re + j*im
@@ -73,8 +81,9 @@ def ret(z):
     '''
     return _vect_c_(_ret_, z)
 
-phase = lambda z: _vect_c_(_phase_, z)
+def phase(z): return _vect_c_(_phase_, z)
 
+conj = np.conjugate
 
 #Álgebra Linear
 matrix = np.array
@@ -91,23 +100,23 @@ def lu_(A):
 
 
 #Funções Trigonometricas
-_deg2rad_fun = lambda func, O: func(deg2rad(O))
-sin = lambda O: _deg2rad_fun(np.sin, O)
-cos = lambda O: _deg2rad_fun(np.cos, O)
-tan = lambda O: _deg2rad_fun(np.tan, O)
+def _deg2rad_fun(func, O): return func(deg2rad(O))
+def sin(O): return _deg2rad_fun(np.sin, O)
+def cos(O): return _deg2rad_fun(np.cos, O)
+def tan(O): return _deg2rad_fun(np.tan, O)
 
-sinh = lambda O: _deg2rad_fun(np.sinh, O)
-cosh = lambda O: _deg2rad_fun(np.cosh, O)
-tanh = lambda O: _deg2rad_fun(np.tanh, O)
+def sinh(O): return _deg2rad_fun(np.sinh, O)
+def cosh(O): return _deg2rad_fun(np.cosh, O)
+def tanh(O): return _deg2rad_fun(np.tanh, O)
 
-_rad2deg_fun = lambda func, val: rad2deg(func(val))
-asin = lambda val: _rad2deg_fun(np.arcsin, val)
-acos = lambda val: _rad2deg_fun(np.arccos, val)
-atan = lambda val: _rad2deg_fun(np.arctan, val)
+def _rad2deg_fun(func, val): return rad2deg(func(val))
+def asin(val): return _rad2deg_fun(np.arcsin, val)
+def acos(val): return _rad2deg_fun(np.arccos, val)
+def atan(val): return _rad2deg_fun(np.arctan, val)
 
-asinh = lambda val: _rad2deg_fun(np.arcsinh, val)
-acosh = lambda val: _rad2deg_fun(np.arccosh, val)
-atanh = lambda val: _rad2deg_fun(np.arctanh, val)
+def asinh(val): return _rad2deg_fun(np.arcsinh, val)
+def acosh(val): return _rad2deg_fun(np.arccosh, val)
+def atanh(val): return _rad2deg_fun(np.arctanh, val)
 
 
 #Constantes
@@ -141,7 +150,8 @@ def view(data):
         out = data
 
     print(f'\n{out}')
-    return
+    return None
+
 
 def plot(x, y=None, show=True):
     '''Plota gráficos de séries de dados.
