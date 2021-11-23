@@ -48,10 +48,12 @@ def _vect_c_(func, z):
         return np.vectorize(func)(z)
     return func(z)
 
+
 def _pol_(z): return (abs(z), rad2deg(ct.phase(z)))
 def _ret_(z): return (z.real, z.imag)
 def _phase_(z): return rad2deg(ct.phase(z))
 def _c_(re, im): return complex(re, im)
+
 
 def c_(re, im):
     '''Complexo no formato z = re + j*im
@@ -64,6 +66,7 @@ def c_(re, im):
     else:
         return _c_(re, im)
 
+
 def cp_(r, theta):
     '''Complexo na forma z = r*exp(j*theta)
     '''
@@ -71,19 +74,24 @@ def cp_(r, theta):
     im = r*np.sin(deg2rad(theta))
     return c_(re, im)
 
+
 def pol(z):
     '''Retorna os valores de ("r", "theta") de complexos.
     '''
     return _vect_c_(_pol_, z)
+
 
 def ret(z):
     '''Retorna os valores de ("Real", "Imag") de complexos.
     '''
     return _vect_c_(_ret_, z)
 
+
 def phase(z): return _vect_c_(_phase_, z)
 
+
 conj = np.conjugate
+
 
 #Álgebra Linear
 matrix = np.array
@@ -92,6 +100,7 @@ def qr_(A):
     '''Decomposição QR de matrizes na forma A = Q@R.
     '''
     return spl.qr(A, mode='economic')
+
 
 def lu_(A):
     '''Decomposição LU de matrizes na forma A = P@L@U.
